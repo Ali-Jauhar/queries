@@ -1,0 +1,62 @@
+Projection Queries
+
+
+1. WAQTD ENAME and HIREDATE of all the employees.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP;
+
+2. WAQTD name and designation of all the employees.
+=>   SELECT ENAME, JOB
+     FROM EMP;
+
+3. WAQTD name, job and salary given all the employees.
+=>   SELECT ENAME, JOB, SAL
+     FROM EMP;
+
+4. WAQTD department names in the department table.
+=>   SELECT DNAME
+     FROM DEPT;
+
+5. WAQTD DNAME and location present in DEPT table.
+=>   SELECT DNAME, LOC
+     FROM DEPT;
+
+6. WAQTD name of the employee along with their annual salary.
+=>   SELECT ENAME, SAL*12 AS ANNUAL_SAL
+     FROM EMP;
+
+7. WAQTD ENAME and job for all the employees with their half term salary.
+=>   SELECT ENAME, JOB, SAL*6
+     FROM EMO;
+
+8. WAQTD all the details of the employees along with an annual bonus of 2000.
+=>   SELECT EMP.*, SAL*12+2000
+     FROM EMP;
+
+9. WAQTD name, salary and salary with a hike of 10%.
+=>   SELECT ENAME, SAL, SAL*10/100 AS HIKED_SAL
+     FROM EMP;
+
+10. WAQTD name and salary with deduction of 25%.
+=>   SELECT ENAME, SAL-SAL*25/100 AS DEDUCTED_SAL
+     FROM EMP;
+
+11. WAQTD name and salary with monthly hike of 50.
+=>   SELECT ENAME, SAL-50
+     FROM EMP;
+
+12. WAQTD name and annual salary with deduction of 10%.
+=>   SELECT ENAME, SAL*12-SAL*12*10/100
+     FROM EMP;
+
+13. WAQTD total salary given to each employee(SAL+COMM).
+=>   SELECT SAL+COMM AS TOTAL_SALARY
+     FROM EMP;
+
+14. WAQTD details of all the employees along with their annual salary.
+=>   SELECT EMP.*, SAL*12 AS ANNUAL_SAL
+     FROM EMP;
+
+15. WAQTD name and designation along with 100 penalty in salary.
+=>   SELECT ENAME, JOB, SAL-100 AS PENALTY_SAL
+     FROM EMP;
