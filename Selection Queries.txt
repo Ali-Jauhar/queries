@@ -1,0 +1,77 @@
+SELECTION QUERIES
+
+
+1. WAQTD the annual salary of the employees whose name is Smith.
+=>   SELECT SAL*12 AS ANNUAL_SAL 
+     FROM EMP
+     WHERE ENAME = 'SMITH';
+
+2. WAQTD name of the employee working as clerk.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE JOB = 'CLERK';
+
+3. WAQTD salary of the employees who are working as salesman.
+=>   SELECT SAL 
+     FROM EMP
+     WHERE JOB = 'SALESMAN';
+
+4. WAQTD details of the employee who earns more than 2000.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE SAL>2000;
+
+5. WAQTD details of the employee whose name is JONES
+=>   SELECT EMP.* 
+     FROM EMP
+     WHERE ENAME = 'JONES';
+
+6. WAQTD details of the employee who has hired after 01-JAN-81.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE HIREDATE> '01-JAN-81';
+
+7. WAQTD name and salary along with his annual salary if the annual salary is more than 12000.
+=>   SELECT ENAME, SAL, SAL*12 AS ANNUAL_SAL
+     FROM EMP
+     WHERE SAL*12>12000;
+
+8. WAQTD emp no of the employees who are working in dept 30.
+=>   SELECT EMPNO
+     FROM EMP
+     WHERE DEPTNO=30;
+
+9. WAQTD name and hire date if they are hired before 1981.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE HIREDATE<'01-JAN-1981';
+
+10. WAQTD details of the employees working as manager.
+=>   SELECT *
+     FROM EMP
+     WHERE JOB='MANAGER';
+
+11. WAQTD name and salary given to an employees if employee earns a commission of rupees 1400.
+=>   SELECT ENAME, SAL
+     FROM EMP
+     WHERE COMM=1400;
+
+12. WAQTD details of employees having commission more than salary.
+=>   SELECT *
+     FROM EMP
+     WHERE COMM>SAL;
+
+13. WAQTD emp no of the employees hired before the year 87.
+=>   SELECT EMPNO 
+     FROM EMP 
+     WHERE HIREDATE<'01-JAN-87';
+
+14. WAQTD details of employees working as an analyst.
+=>   SELECT *
+     FROM EMP
+     WHERE JOB='ANALYST';
+
+15. WAQTD details of employees earning more than 2000 rupees.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE SAL>2000;
