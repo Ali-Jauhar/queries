@@ -1,0 +1,62 @@
+OPERATORS QUERIES
+
+
+1. WAQTD names, department number and job of employees working as clerk in dept 10 or 20.
+=>   SELECT ENAME, DEPTNO, JOB
+     FROM EMP 
+     WHERE (DEPTNO = 10 OR DEPT NO = 20) AND JOB = 'CLERK';
+
+2. WAQTD details of the employees working as clerk or manager in dept 10.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE (JOB = 'CLERK' OR JOB = 'MANAGER') AND DEPTNO = 10;
+
+3. WAQTD name of employees working in department 10,20,30,40.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE DEPTNO=10 OR DEPTNO=20 OR DEPTNO=30 OR DEPTNO=40; 
+
+4. WAQTD details of employees with employee no 7902,7839.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE EMPNO=7902 OR EMPNO=7839;
+
+5. WAQTD details of employees working as manager or salesman or clerk.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='MANAGER' OR JOB='CLERK' OR JOB='SALESMAN';
+
+6. WAQTD names of employees hired after 81 and before 87.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE HIREDATE>'01-JAN-81' AND HIREDATE<'31-DEC-87';
+
+7. WAQTD details of employees earning more than 1250 but less than 3000.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE SAL>1250 AND SAL<3000;
+
+8. WAQTD names of employees hired after 81 into dept 10 or 30.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE (DEPTNO=10 OR DEPTNO=30) AND HIREDATE>'01-JAN-82';
+
+9. WAQTD names of employees along with annual salary for the employees working as manager or clerk into dept 10 or 30.
+=>   SELECT ENAME, SAL*12 AS ANNUAL_SAL
+     FROM EMP
+     WHERE (DEPTNO=10 OR DEPTNO=30) AND (JOB = 'CLERK' OR JOB = 'MANAGER');
+
+10. WAQTD all the details along with annual salary if salary is between 1000 and 4000 annual salary more than 15000.
+=>   SELECT EMP.*, SAL*12 AS ANNUAL_SAL
+     FROM EMP
+     WHERE (SAL>1000 AND SAL<4000) AND SAL*12>15000;
+
+11. WAQTD details of all the employees except the employees in dept 10 or 30.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO!=10 AND DEPTNO!=30;
+
+12. WAQTD details of all the employees along with annual salary except the employees working as analyst or manager.
+=>   SELECT EMP.*, SAL*12 "ANNUAL SAL"
+     FROM EMP
+     WHERE JOB!='ANALYST' AND JOB!='MANAGER';
