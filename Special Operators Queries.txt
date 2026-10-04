@@ -1,0 +1,154 @@
+SPECIAL OPERATORS QUERIES
+
+
+1. WAQTD details of all the employees who do not earn commission in dept 20.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE COMM IS NULL AND DEPTNO IN 20;
+
+2. WAQTD details of all the employees who do not have a reporting manager.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE MGR IS NULL;
+
+3. WAQTD details of all the salesman along with annual salary in dept 30.
+=>   SELECT EMP.*, SAL*12 "ANNUAL SAL"
+     FROM EMP
+     WHERE DEPTNO IN 30 AND JOB IN 'SALESMAN';
+
+4. WAQTD details of all the salesman in dept 30 or 20 and earning salary more than 1500.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN (30,20) AND SAL>1500;
+
+5. WAQTD details of all the employees whose name starts with the character 'S' or 'A'.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE ENAME LIKE 'S%' OR ENAME LIKE 'A%';
+
+6. WAQTD details of all the employees except those who are working in dept 10 & 20.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN (10,20);
+
+7. WAQTD the names of the employees whose name does not start with 'R'.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE ENAME NOT LIKE 'R%';
+
+8. WAQTD details of the employees who are having MGR in dept 10 or 30.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN (10,30) AND MGR IS NOT NULL;
+
+9. WAQTD details of all the employees whose commission is null and working as clerk or manager.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE COMM IS NULL AND JOB IN ('CLERK','MANAGER');
+
+10. WAQTD details of all the employees who don't have a MGR in dept 10 or 30.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN (10,30) AND MGR IS NULL;
+
+11. WAQTD details of all the managers in dept 30 with salary in the range 2000-4000.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='MANAGER' AND DEPTNO=30 AND (SAL BETWEEN 2000 AND 4000);
+
+12. WAQTD details of all the analyst in dept 20 or 30 by excluding the employees whose salary ranges from 1250-3000.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='ANALYST' AND DEPTNO IN (20,30) AND SAL BETWEEN 1250 AND 3000;
+
+13. WAQTD name of the employees whose name starts with 'M', 'J' or 'A'.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE ENAME LIKE 'M%' OR ENAME LIKE 'J%' OR ENAME LIKE 'A%';
+
+14. WAQTD details of all the employees with annual salary except those who are working in dept 30.
+=>   SELECT EMP.*, SAL*12 "ANNUAL SAL"
+     FROM EMP
+     WHERE DEPTNO!=30;
+
+15. WAQTD the employees names if the name does not end with 'ES' or 'R'.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE ENAME NOT LIKE '%ES' AND ENAME NOT LIKE '%R';
+
+16. WAQTD details of all the employees who are having MGR in dept 10 and also display the salary along with 10% hike.
+=>   SELECT EMP.*, SAL+SAL*10/100 "HIKED SAL"
+     FROM EMP
+     WHERE DEPTNO=10 AND MGR IS NOT NULL;
+
+17. WAQTD details of all the employees who working as 'salesman' and having 'E' as the second last character in ename but earning 3-digit salary.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='SALESMAN' AND ENAME LIKE '%E_' AND SAL BETWEEN 100 AND 999;
+
+18. WAQTD names of the employees with their hire date if the employees are hired after 1984 but before 1987 into the dept 10 or 20.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE DEPTNO IN (10,20) AND HIREDATE BETWEEN '01-JAN-85' AND '31-DEC-87';
+
+19. WAQTD names of the employees working as a clerk or manager in dept 10 or 20 and were hired in the month of feb.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE JOB IN ('CLERK','MANAGER') AND DEPTNO IN (10,20) AND HIREDATE LIKE '%FEB%';
+
+20. WAQTD the details of the employees who are not working as manager and clerks in dept 10 and 20 with salary in the range 1000 to 3000.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB NOT IN ('MANAGER','CLERK') AND DEPTNO IN (10,20) AND SAL BETWEEN 1000 AND 3000;
+
+21. WAQTD names of the employees whose salary not in the range of 1999 to 2999 and working in dept 10,20 or 30 excluding all the salesman.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE JOB!='SALESMAN' AND DEPTNO IN (10,20,30) AND SAL NOT BETWEEN 1999 AND 2999;
+
+22. WAQTD department names which are having letter 'O' in their location.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE LOC LIKE '%O%';
+
+23. WAQTD ename and designation of all the employees whose job has string 'MAN' in it.
+=>   SELECT ENAME, JOB
+     FROM EMP
+     WHERE JOB LIKE '%MAN%';
+
+24. WAQTD names of the employees who are hired after 82 and before 87 and working as a analyst.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE JOB='ANALYST' AND HIREDATE BETWEEN '31-DEC-82' AND '01-JAN-87;
+
+25. WAQTD all the details of employees hired in the month November and December.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE HIREDATE LIKE '%NOV%' OR HIREDATE LIKE '%DEC%';
+
+26. WAQTD details of all the employees who earn commission more than their salary.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE COMM>SAL;
+
+27. WAQTD name and designation for all the employees having reporting managers in dept 20 or 30 and also their names must starts with S.
+=>   SELECT ENAME, JOB
+     FROM EMP
+     WHERE DEPTNO IN (20,30) AND ENAME LIKE 'S%' AND MGR IS NOT NULL;
+
+28. WAQTD name and salary along with annual salary for all the employees earning 7-digit annual salary and annual salary ends with 210.
+=>   SELECT ENAME, SAL, SAL*12 "ANNUAL SAL"
+     FROM EMP
+     WHERE SAL*12 BETWEEN 1000000 AND 9999999 AND SAL*12 LIKE '%210';
+
+29. WAQTD name of the employees having 2L's in his name.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE ENAME LIKE '%L%L%';
+
+30. WAQTD name of the employees whose name starts with a vowel.
+=>   SELECT ENAME 
+     FROM EMP 
+     WHERE ENAME LIKE 'A%' OR ENAME LIKE 'E%' OR ENAME LIKE 'I%'  OR ENAME LIKE 'O%' OR ENAME LIKE 'U%';
+
+  
