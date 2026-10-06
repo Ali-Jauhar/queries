@@ -1,0 +1,124 @@
+GROUP BY AND HAVING QUERIES 
+
+
+1. WAQTD total salary needed to pay each job in employee table.
+=>   SELECT SUM(SAL), JOB
+     FROM EMP
+     GROUP BY JOB;
+ 
+2. WAQTD the hire date on which at least 3 employees where hired.
+=>   SELECT COUNT(*), HIREDATE
+     FROM EMP
+     GROUP BY HIREDATE
+     HAVING COUNT(*)>2;
+
+3. WAQTD the department number which has more than 2 employees and the total mount required to
+     pay the monthly salaries of all the employees in that department should be more 
+         than 9000.
+=>   SELECT DEPTNO, SUM(SAL), COUNT(*)
+     FROM EMP
+     WHERE SAL>9000
+     GROUP BY DEPTNO
+     HVAING COUNT(*)>2;
+
+4. WAQTD number of employees working in each dept and it's average salary by excluding all the
+     employees whose salary is less than their commission.
+=>   SELECT COUNT(*), AVG(SAL), DEPTNO
+     FROM EMP
+     WHERE SAL<COMM
+     GROUP BY DEPTNO;
+
+5. WAQTD the salaries which has repetitions in the salary column of employee table.
+=>   SELECT SAL 
+     FROM EMP
+     GROUP BY SAL
+     HAVING COUNT(SAL) > 1;
+
+6. WAQTD name only if more than one person in the employees of the company has same name.
+=>   SELECT ENAME
+     FROM EMP
+     GROUP BY ENAME
+     HAVING COUNT(*)>1;
+
+7. WAQTD dept number whose average salary is between 2500 and 3000.
+=>   SELECT DEPTNO, AVG(SAL) 
+     FROM EMP 
+     GROUP BY DEPTNO 
+     HAVING AVG(SAL) BETWEEN 2500 AND 3000;
+
+8. WAQTD number of employees only if they are working as manager or analyst and their annual
+     salary should end with zero, in each department.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE JOB IN ('MANAGER','ANALYST') AND SAL*12 LIKE '%0'
+     GROUP BY DEPTNO;
+
+9. WAQTD number of clerks working in each department.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE JOB='CLERK'
+     GROUP BY DEPTNO;
+
+10. WAQTD highest salary given to a employee in each department.
+=>   SELECT MAX(SAL), DEPTNO
+     FROM EMP
+     GROUP BY DEPTNO;
+
+11. WAQTD number of times the salaries have repeated in the employee table.
+=>   SELECT SAL, COUNT(*) 
+     FROM EMP 
+     GROUP BY SAL 
+     HAVING COUNT(*) > 1;
+
+12. WAQTD dept no and no of employees working in each department.
+=>   SELECT DEPTNO, COUNT(*)
+     FROM EMP
+     GROUP BY DEPTNO;
+
+13. WAQTD no of employees getting commission in each department.
+=>   SELECT COUNT(COMM), DEPTNO
+     FROM EMP
+     WHERE COMM IS NOT NULL AND COMM>0
+     GROUP BY DEPTNO;
+
+14. WAQTD no of employees getting salary more than 1600 excluding all the managers in each dept.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE SAL>1600 AND JOB!='MANAGER'
+     GROUP BY DEPTNO;
+
+15. WAQTD average salary needed to pay all the employees who are having a MGR in each dept.
+=>   SELECT AVG(SAL), DEPTNO
+     FROM EMP
+     WHERE MGR IS NOT NULL
+     GROUP BY DEPTNO;
+
+16. WAQTD no of employees hired into the same dept on the same day.
+=>   SELECT COUNT(*), DEPTNO, HIREDATE  
+     FROM EMP
+     GROUP BY DEPTNO, HIREDATE 
+     HAVING COUNT(*) > 1;
+
+17. WAQTD no of employees getting the same salary working in the same dept.
+=>   SELECT COUNT(*), SAL, DEPTNO
+     FROM EMP
+     GROUP BY DEPTNO
+     HVAING COUNT(*)>1;
+
+18. WAQTD maximum salary given in each designation excluding those whose name starts with 'K'.
+=>   SELECT MAX(SAL), JOB
+     FROM EMP
+     WHERE ENAME LIKE'K%'
+     GROUP BY JOB;
+
+19. WAQTD number of employees reporting to 7839 in each department.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE MGR=7839
+     GROUP BY DEPTNO;
+
+20. WAQTD number of employees names starting with an vowel in each department.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE REGEXP_LIKE (ENAME, '^[AEIOU]')
+     GROUP BY DEPTNO;
