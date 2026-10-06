@@ -1,0 +1,58 @@
+GROUP BY QUERIES
+
+
+1. WAQTD number of employees working in each department except president .
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE JOB != 'SALESMAN'
+     GROUP BY DEPTNO;
+
+2. WAQTD total salary needed to pay all the employees in each job.
+=>   SELECT SUM(SAL), JOB
+     FROM EMP
+     GROUP BY JOB;
+
+3. WAQTD number of employees working as manager in each department.
+=>   SELECT COUNT(*), DEPTNO
+     FROM EMP
+     WHERE JOB = 'MANAGER'
+     GROUP BY DEPTNO;
+
+4. WAQTD average salary needed to pay all the employees in each department excluding the employees of dept 20.
+=>   SELECT AVG(SAL), DEPTNO
+     FROM EMP
+     WHERE DEPTNO!=20
+     GROUP BY DEPTNO;
+
+5. WAQTD number of employees having character 'A' in their names in each job.
+=>   SELECT COUNT(*), JOB
+     FROM EMP
+     WHERE ENAME LIKE '%A%'
+     GROUP BY JOB;
+
+6. WAQTD number of employees and average salary needed to pay the employees whose salary is greater than 2000 in each dept.
+=>   SELECT COUNT(*), AVG(SAL), DEPTNO
+     FROM EMP
+     WHERE SAL>2000
+     GROUP BY DEPTNO;
+
+7. WAQTD total salary needed to pay and number of salesman in each dept.
+=>   SELECT SUM(SAL), COUNT(*), DEPTNO
+     FROM EMP
+     WHERE JOB='SALESMAN'
+     GROUP BY DEPTNO;
+
+8. WAQTD number of employees with their maximum salaries in each job.
+=>   SELECT COUNT(*), MAX(SAL), JOB
+     FROM EMP
+     GROUP BY JOB;
+
+9. WAQTD maximum salaries given to an employee working in each dept.
+=>   SELECT MAX(SAL), DEPTNO
+     FROM EMP
+     GROUP BY DEPTNO;
+
+10. WAQTD number of times the salaries have been repeated in employee table.
+=>   SELECT COUNT(*), SAL
+     FROM EMP
+     GROUP BY SAL;
