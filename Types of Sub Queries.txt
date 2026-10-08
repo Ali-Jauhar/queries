@@ -1,0 +1,103 @@
+TYPER OF SUB QUERY 
+(IN, ALL, ANY)
+
+
+1. WAQTD name of the employee earning maximum salary.
+=>   SELECT ENAME
+     FRPM EMP
+     WHERE SAL=(SELECT MAX(SAL)
+                FROM EMP);
+
+2. WAQTD name of the employee earning minimum salary.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE SAL=(SELECT MIN(SAL)
+                FROM EMP);
+
+3. WAQTD name and hire date of employee hired first.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE HIREDATE=(SELECT MAX(HIREATE)
+                     FROM EMP);
+
+4. WAQTD name and hire date of employee hired last.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE HIREDATE=(SELECT MIN(HIREDATE)
+                     FROM EMP);
+
+5. WAQTD name, comm of the employee who earns minimum comm.
+=>   SELECT ENAME, COMM
+     FROM EMP
+     WHERE COMM=(SELECT MIN(COMM)
+                 FROM EMP);
+
+6. WAQTD name, salary, comm of the employee who earns maximum comm.
+=>   SELECT ENAME, SAL, COMM
+     FROM EMP
+     WHERE COMM=(SELECT MAX(COMM)
+                 FROM EMP);
+
+7. WAQTD details of the employees who has greatest employee number.
+=>   SELECT *
+     FROM EMP
+     WHERE EMPNO=(SELECT MAX(EMPNO)
+                  FROM EMP);
+                
+8. WAQTD details of the employee who ears least annual salary.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE SAL*12=(SELECT MIN(SAL*12)
+                   FROM EMP);
+
+9. WAQTD details of the employee having the least hire date.
+=>   SELECT *
+     FROM EMP
+     WHERE HIREDATE=(SELECT MIN(HIREDATE)
+                     FROM EMP);
+
+10. WAQTD name, annual salary of the employee if their annual salary is more than all the salesman.
+=>   SELECT ENAME, SAL*12 AS ANNUAL_SAL
+     FROM EMP
+     WHERE SAL*12> ALL (SELECT SAL*12
+                        FROM EMP
+                        WHERE JOB='SALESMAN');
+
+11. WAQTD name of the employee earning salary more than salesman.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE SAL> ALL (SELECT SAL
+                     FROM EMP
+                     WHERE JOB='SALESMAN');
+
+12. WAQTD details of the employees hired after all the clerks.
+=>   SELECT *
+     FROM EMP
+     WHERE HIREDATE> ALL (SELECT HIREDATE
+                          FROM EMP
+                          WHERE JOB='CLERK');
+
+13. WAQTD name and salary for the employees if they are earning less than a manager.
+=>   SELECT ENAME, SAL
+     FROM EMP
+     WHERE SAL< ALL (SELECT SAL
+                     FROM EMP
+                     WHERE JOB='MANAGER');
+
+14. WAQTD name and hire date of the employees hired before all the managers.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE HIREDATE< ALL (SELECT HIREDATE
+                          FROM EMP
+                          WHERE JOB='MANAGER');
+ 
+15. WAQTD name of the employees hired after all the managers and earning salary more than all the clerks.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE HIREDATE> ALL (SELECT HIREDATE
+                          FROM EMP
+                          WHERE JOB='MANAGER')
+     AND SAL> ALL (SELECT SAL
+                   FROM EMP
+                   WHERE JOB='CLERK');
+ 
