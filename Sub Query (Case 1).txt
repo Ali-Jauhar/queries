@@ -1,0 +1,89 @@
+SUB QUERY (CASE 1)
+- Whenever there is an unknown present in the question.
+
+
+
+1. WAQTD names and salary of all the employees who are earning more than MILLER but less than ALLEN.
+=>   SELECT ENAME, SAL
+     FROM EMP
+     WHERE SAL>(SELECT SAL 
+                FROM EMP 
+                WHERE SAL>'MILLER' AND SAL<'ALLEN');
+             
+2. WAQTD all the details of the employees working in dept 20 and working in the same designation as SMITH.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN 20
+     AND JOB IN (SELECT JOB
+                 FROM EMP
+                 WHERE ENAME='SMITH');
+
+3. WAQTD all the details of the employees working as manager in the same dept as TURNER.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='MANAGER'
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM EMP
+                    WHERE ENAME='TURNER');
+
+4. WAQTD name and hire date of the employees hired after 1980 and before KING.
+=>   SELECT ENAME, HIREDATE
+     FROM EMP
+     WHERE HIREDATE>'31-DEC-80'
+     AND HIREDATE<(SELECT HIREDATE
+                   FROM EMP
+                   WHERE ENAME='KING');
+
+5. WAQTD name and salary along with annual salary for all employees whose salary is less than BLAKE and more than 3500.
+=>   SELECT ENAME, SALARY, SAL*12 "ANNUAL SAL"
+     FROM EMP
+     WHERE SAL>3500
+     AND SAL IN (SELECT SAL
+                 FROM EMP
+                 WHERE ENAME='BLAKE');
+
+6. WAQTD all the details of employees who earn more than SCOTT but less than KING.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE SAL>(SELECT SAL
+                FROM EMP
+                WHERE ENAME='SCOTT')
+     AND SAL<(SELECT SAL
+              FROM EMP
+              WHERE ENAME='KING');
+
+7. WAQTD name of the employees whose name starts with 'S' and works in the same dept as BLAKE.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE ENAME LIKE 'S%'
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM EMP
+                    WHERE DEPTNO=30);
+
+8. WAQTD name and commission if the employees earn commission and work in the same designation as SMITH.
+=>   SELECT ENAME, COMM
+     FROM EMP
+     WHERE COMM IS NOT NULL
+     AND JOB IN (SELECT JOB
+                 FROM EMP
+                 WHERE ENAME='SMITH');
+
+9. WAQTD details of all the employees working as clerk in the same dept as TURNER.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='CLERK'
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM EMP
+                    WHERE ENAME='TURNER');
+
+10. WAQTD name, salary and designation of the employees whose annual salary is more than SMITH and less than KING.
+=>   SELECT ENAME, SAL, JOB
+     FROM EMP
+     WHERE SAL*12>(SELECT SAL*12
+                   FROM EMP
+                   WHERE ENAME='SMITH')
+     AND SAL*12<(SELECT SAL*12
+                 FROM EMP
+                 WHERE ENAME='KING');
+
+
