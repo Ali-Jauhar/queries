@@ -1,0 +1,91 @@
+SUB QUERY(CASE 2)
+- Whenever the data to be selected is present in one table and condition to be 
+    executed is present in another table we use subquery.
+
+
+
+1. WAQTD names of the employees earning more than Scott and working in accounting dept.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE SAL> (SELECT SAL
+                 FROM EMP
+                 WHERE ENAME='SCOTT')
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM DEPT
+                    WHERE DNAME='ACCOUNTING');
+
+2. WAQTD details of the employees working as manager in the location Chicago.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='MANAGER'
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM DEPT
+                    WHERE LOC='CHICAGO');
+
+3. WAQTD name and salary of the employees earning more than King and working in dept accounting.
+=>   SELECT ENAME, SAL
+     FROM EMP
+     WHERE SAL>(SELECT SAL
+                FROM EMP
+                WHERE ENAME='KING')
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM DEPT
+                    WHERE DNAME='ACCOUNTING');
+
+4. WAQTD details of the employees working as salesman in the dept sales.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE JOB='SALESMAN'
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM DEPT
+                    WHERE DNAME='SALES');
+
+5. WAQTD name, salary, job, hire date of the employees working in operations department
+     and hired before King.
+=>   SELECT ENAME, SAL, JOB, HIREDATE 
+     FROM EMP
+     WHERE HIREDATE=(SELECT HIREDATE
+                     FROM EMP
+                     WHERE ENAME='KING')
+     AND DEPTNO IN (SELECT DEPTNO
+                    FROM DEPT
+                    WHERE DNAME='SALES');
+
+6. WAQTD all the employees whose department names ending 'S'.
+=>   SELECT EMP.*
+     FROM EMP
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM DEPT
+                      WHERE DNAME LIKE '%S');
+
+7. WAQTD department name of the employee whose names has character 'A' in it.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      WHERE ENAME LIKE '%A%');
+
+8. WAQTD department name in which there are at least 5 employees working.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      GROUP BY DEPTNO
+                      HAVING COUNT(*)>4);
+
+9. WAQTD loc in which there are exactly 3 employees working.
+=>   SELECT LOC
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      GROUP BY DEPTNO
+                      HAVING COUNT(*)=3);
+
+10. WAQTD salaries of the employees having same names.
+=>   SELECT SAL
+     FROM EMP
+     WHERE ENAME IN (SELECT ENAME
+                     FROM EMP
+                     GROUP BY ENAME
+                     HAVING COUNT(*)>1);
+      
