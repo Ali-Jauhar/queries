@@ -1,0 +1,100 @@
+EMP-MGR RELATIONSHIP QUERIES
+
+
+
+1. WAQTD Smith's reporting manager's name.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE EMPNO IN (SELECT MGR
+                     FROM EMP
+                     WHERE ENAME='SMITH');
+
+2. WAQTD Adams manager's manager name.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE EMPNO IN (SELECT MGR 
+                     FROM EMP
+                     WHERE EMPNO IN (SELECT MGR 
+                                     FROM EMP
+                                     WHERE ENAME='ADAMS'));
+
+3. WAQTD department name of Jones manager.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO 
+                      FROM EMP
+                      WHERE EMPNO IN (SELECT MGR
+                                      FROM EMP
+                                      WHERE ENAME='JONES'));
+
+4. WAQTD Miller's manager's salary.
+=>   SELECT SAL 
+     FROM EMP
+     WHERE EMPNO IN (SELECT MGR 
+                     FROM EMP
+                     WHERE ENAME='MILLER');
+
+5. WAQTD LOC of Smith's manager's manager.
+=>   SELECT LOC
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO 
+                      FROM EMP
+                      WHERE EMPNO IN (SELECT MGR
+                                      FROM EMP
+                                      WHERE EMPNO IN (SELECT MGR
+                                                      FROM EMP 
+                                                      WHERE ENAME='SMITH')));
+
+6. WAQTD name of the employees reporting to Blake.
+=>   SELECT ENAME
+     FROM EMP
+     WHERE MGR= (SELECT EMPNO
+                 FROM EMP
+                 WHERE ENAME='BLAKE');
+
+7. WAQTD number of employees reporting to King.
+=>   SELECT COUNT(*)
+     FROM EMP
+     WHERE MGR IN (SELECT EMPNO 
+                   FROM EMP
+                   WHERE ENAME='KING');
+
+8. WAQTD details of the employees reporting to Jones.
+=>   SELECT * 
+     FROM EMP
+     WHERE MGR IN (SELECT EMPNO 
+                   FROM EMP
+                   WHERE ENAME='JONES');
+
+9. WAQTD employee name of the employees reporting to Blake's manager.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE MGR IN (SELECT MGR
+                   FROM EMP
+                   WHERE ENAME='BLAKE');
+
+10. WAQTD number of employees reporting to ford's manager.
+=>   SELECT COUNT(*)
+     FROM EMP
+     WHERE MGR IN (SELECT EMPNO
+                   FROM EMP
+                   WHERE MGR IN (SELECT MGR
+                                 FROM EMP
+                                 WHERE ENAME='FORD'));
+
+11. WAQTD the department name of the employee if their manager salary is more than 2000.
+=>   SELECT DNAME 
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                   FROM EMP
+                   WHERE MGR IN (SELECT MGR 
+                                 FROM EMP
+                                 WHERE SAL>2000));
+
+12. WAQTD the number of employees working in each department and hired after king.
+=>   SELECT DEPTNO, COUNT(*)
+     FROM EMP
+     WHERE HIREDATE> (SELECT HIREDATE
+                      FROM EMP
+                      WHERE ENAME='KING')
+     GROUP BY DEPTNO;
