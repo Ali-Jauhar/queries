@@ -1,0 +1,100 @@
+INNER JOIN QUERY
+
+
+
+1. WAQTD name of the employees and his location.
+=>   SELECT ENAME, LOC
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO;
+
+2. WAQTD dept name and salary for all the employee working in Accounting.
+=>   SELECT DNAME, SAL
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO 
+     AND DNAME='ACCOUNTING';
+
+3. WAQTD dept name and annual salary for all the employees whose salary is more than 2340.
+=>   SELECT DNAME,ENAME, SAL*12 AS ANNUAL_SAL
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND SAL>2340;
+
+4  WAQTD name and dept name for employees having character 'A' in their dept name.
+=>   SELECT ENAME, DNAME
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND DNAME LIKE '%A%';
+
+5. WAQTD name and dept name for al the employees working as Salesman.
+=>   SELECT ENAME, DNAME
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND JOB='SALESMAN';
+
+6. WAQTD dept name and job for all the employees whose job and dept name starts with 'S'.
+=>   SELECT DNAME, JOB, ENAME
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND DNAME LIKE 'S%';
+
+7. WAQTD dept name and MGR no for employees reporting to 7839.
+=>   SELECT DNAME, MGR, ENAME
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND MGR=7839;
+
+8. WAQTD dept name and hire date for employees hired after 83 into Accounting or Research dept.
+=>   SELECT DNAME, HIREDATE
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND HIREDATE>'31-DEC-83'
+     AND DNAME IN ('ACCOUNTING','RESEARCH');
+     
+9. WAQTD name and dept name of the employees who are getting comm in dept 10 or 30.
+=>   SELECT ENAME, DNAME
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND EMP.DEPTNO IN (10,30) AND COMM IS NOT NULL;
+
+10. WAQTD dept name and emp no for all the employees whose emp no are (7839,7902) and are working in loc new York.
+=>   SELECT DNAME, EMPNO
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND EMPNO IN (7839,7902) AND LOC='NEW YORK';
+
+11. WAQTD loc and average salary given for each location by excluding all the employees whose second char is 'A'.
+=>   SELECT LOC, AVG(SAL)
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND ENAME LIKE '_A%'
+     GROUP BY LOC;
+
+12. WAQTD name of the employee and his location if employees is working as manager and working under the employee whose emp no is 7839.
+=>   SELECT ENAME, LOC
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND JOB='MANAGER'
+     AND EMPNO IN (SELECT EMPNO
+                   FROM EMP
+                   WHERE MGR=7839);
+
+13. WAQTD dept name and emp id of all the emp who are clerk and having reporting managers.
+=>   SELECT DNAME, EMPNO
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     AND JOB='CLERK' AND MGR IS NOT NULL;
+
+14. WAQTD dept name and total salary given to that dept if there are at least 4 employees working for each dept.
+=>   SELECT DNAME, SUM(SAL)
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO
+     GROUP BY DNAME
+     HAVING COUNT(*)>3;
+
+15. WAQTD dept name and number of employees working in each dept only if there are manager or clerks.
+=>   SELECT DNAME, COUNT(*)
+     FROM EMP, DEPT
+     WHERE EMP.DEPTNO=DEPT.DEPTNO AND JOB IN ('MANAGER','CLERK')
+     GROUP BY DNAME;
+     
+ 
