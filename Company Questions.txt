@@ -1,0 +1,129 @@
+COMPANY QUESTIONS
+
+
+
+1. WAQTD list of all the department and Location of all the salesman manager manager's. 
+=>   SELECT DNAME, LOC 
+     FROM DEPT 
+     WHERE DEPTNO IN(SELECT DEPTNO 
+                     FROM EMP 
+                     WHERE EMPNO IN (SELECT MGR 
+                                     FROM EMP
+                                     WHERE EMPNO IN (SELECT MGR
+                                                     FROM EMP 
+                                                     WHERE JOB='SALESMAN')));
+
+2. WAQTD the last employee record (Hired Last) with 25% hike in salary.
+=>   SELECT EMP.*, SAL+SAL*25/100 AS HIKED_SAL
+     FROM EMP
+     WHERE HIREDATE=(SELECT MIN(HIREDATE)
+                     FROM EMP);
+
+
+3. WAQTD department name, location, department no of employees 
+=>   SELECT DNAME, LOC, DEPTNO
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      WHERE MGR IN(SELECT MGR
+                                   FROM EMP
+                                   GROUP BY MGR
+                                   HAVING COUNT(*)>1));
+ 
+4. WAQTD the department name of the employees whose manager earns more than 2000.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      WHERE MGR IN (SELECT EMPNO
+                                    FROM EMP
+                                    WHERE SAL>2000));
+
+5. WAQTD all the employees whose salary is greater than average salary of dept 20.
+=>   SELECT *
+     FROM EMP
+     WHERE SAL>(SELECT AVG(SAL)
+                FROM EMP
+                WHERE DEPTNO=20);
+
+6. WAQTD the number of employees who work in research dept and their salary is lesser than one of the salary in dept 10.
+=>   SELECT COUNT(*)
+     FROM EMP
+     WHERE DEPTNO IN (SELECT DEPTNO 
+                      FROM DEPT
+                      WHERE DNAME='RESEARCH')
+     AND SAL < ANY (SELECT SAL
+                    FROM EMP
+                    WHERE DEPTNO=10);
+
+7. WAQTD the dept name if the employee's manager earns 2nd maximum salary.
+=>   SELECT DNAME
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO 
+                      FROM EMP
+                      WHERE MGR IN (SELECT EMPNO
+                                      FROM EMP
+                                      WHERE SAL=(SELECT MAX(SAL)
+                                                 FROM EMP
+                                                 WHERE SAL<(SELECT MAX(SAL)
+                                                            FROM EMP))));
+ 
+8. WAQTD  the names of the employee who have same reporting manager and 
+      earn salary more than the first hired employee.
+=>   SELECT ENAME 
+     FROM EMP
+     WHERE MGR IN ( SELECT MGR
+                    FROM EMP
+                    GROUP BY MGR
+                    HAVING COUNT(*)>1)
+     AND SAL>(SELECT SAL
+              FROM EMP
+              WHERE HIREDATE= (SELECT MIN(HIREDATE)
+              FROM EMP));
+
+
+9. WAQTD the details of the employees working as a manager  and reports 
+      to Blake and earns more than Scott who is working in 
+           accounting department.
+=>   SELECT *
+     FROM EMP
+     WHERE JOB='MANAGER' AND MGR IN (SELECT MGR
+                     FROM EMP
+                     WHERE MGR IN (SELECT MGR
+                                   FROM EMP
+                                   WHERE ENAME='BLAKE'))
+     AND SAL> (SELECT SAL 
+               FROM EMP
+               WHERE ENAME='SCOTT' AND DEPTNO IN (SELECT DEPTNO 
+                                                  FROM DEPT
+                                                  WHERE DNAME='ACOUNTING'));
+
+
+10. WAQTD employees who earn the highest salary in the department where 
+       the minimum salary is greater than 1500.
+=>   SELECT *
+     FROM EMP
+     WHERE SAL = (SELECT MAX(SAL)
+                  FROM EMP
+                  WHERE DEPTNO IN (SELECT DEPTNO
+                                   FROM emp
+                                   GROUP BY DEPTNO
+                                   HAVING MIN(SAL) > 1500));
+
+11. WAQTD departments where the highest salary is less than the overall 
+       average salary.
+=>   SELECT DEPTNO
+     FROM DEPT
+     WHERE DEPTNO IN (SELECT DEPTNO
+                      FROM EMP
+                      GROUP BY DEPTNO
+                      HAVING MAX(SAL) < (SELECT AVG(SAL)
+                                     FROM EMP));
+     
+
+
+
+
+
+
+
